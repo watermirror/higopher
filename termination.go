@@ -15,14 +15,14 @@ var terminatingFlag bool = false
 var terminatingTimeoutMilliseconds int = 0
 
 // If the program exits by terminating timeout, this code will be the exit code.
-var exitCodeOnTimeout int = 0
+var exitCodeOnTimeout int8 = 0
 
 // EnableGracefulTermination enables the feature of graceful termination.
 // - The parameter timeoutMilliseconds is a during period, within which the
 //   program can handle some terminating tasks.
 // - If the program exits by terminating timeout, parameter timeoutExitCode will
 //   be the exit code.
-func EnableGracefulTermination(timeoutMilliseconds int, timeoutExitCode int) {
+func EnableGracefulTermination(timeoutMilliseconds int, timeoutExitCode int8) {
 	// Set timeout.
 	if terminatingTimeoutMilliseconds < 0 {
 		panic(1)
@@ -60,5 +60,5 @@ func doListen(channel chan os.Signal) {
 	// Wait for other part of the program to accomplish some terminationg
 	// prosedures.
 	time.Sleep(time.Duration(terminatingTimeoutMilliseconds) * time.Millisecond)
-	os.Exit(exitCodeOnTimeout)
+	os.Exit(int(exitCodeOnTimeout))
 }
