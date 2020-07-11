@@ -28,6 +28,7 @@ func EnableGracefulTermination(timeoutMilliseconds int, timeoutExitCode int) {
 		panic(1)
 	}
 	terminatingTimeoutMilliseconds = timeoutMilliseconds
+	exitCodeOnTimeout = timeoutExitCode
 
 	// Prepare system signal channel to listen signals sent to program.
 	signalChannel := make(chan os.Signal, 1)
